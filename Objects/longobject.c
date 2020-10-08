@@ -5576,7 +5576,8 @@ long_long_meth(PyObject *self, PyObject *Py_UNUSED(ignored))
 /* Only for TEST purposes */
 static Py_ssize_t
 int_length(PyListObject *a)
-{
+{   
+    // return Py_SIZE(a);
     return PyLong_FromLong(0);
 }
 
