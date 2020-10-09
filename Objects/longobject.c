@@ -5573,6 +5573,17 @@ long_long_meth(PyObject *self, PyObject *Py_UNUSED(ignored))
     return long_long(self);
 }
 
+/* Only for TEST purposes */
+static Py_ssize_t
+int_length(PyListObject *a)
+{   
+    // return Py_SIZE(a);
+    return PyLong_FromLong(0);
+}
+
+PyDoc_STRVAR(length_doc, "Private method returning 0 as len of integer.");
+/* END */
+
 static PyMethodDef long_methods[] = {
     {"conjugate",       long_long_meth, METH_NOARGS,
      "Returns self, the complex conjugate of any int."},
@@ -5592,6 +5603,7 @@ static PyMethodDef long_methods[] = {
     INT___GETNEWARGS___METHODDEF
     INT___FORMAT___METHODDEF
     INT___SIZEOF___METHODDEF
+    {"__len__", (PyCFunction)int_length, METH_NOARGS, length_doc}, // new addition to int type for test purposes
     {NULL,              NULL}           /* sentinel */
 };
 
@@ -5614,6 +5626,8 @@ static PyGetSetDef long_getset[] = {
      NULL},
     {NULL}  /* Sentinel */
 };
+
+
 
 PyDoc_STRVAR(long_doc,
 "int([x]) -> integer\n\
