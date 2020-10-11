@@ -1533,17 +1533,18 @@ none_dealloc(PyObject* ignore)
 static PyObject *
 none_new(PyTypeObject *type, PyObject *args, PyObject *kwargs)
 {
-    if (PyTuple_GET_SIZE(args) || (kwargs && PyDict_GET_SIZE(kwargs))) {
-        PyErr_SetString(PyExc_TypeError, "NoneType takes no arguments");
-        return NULL;
-    }
-    Py_RETURN_NONE;
+    // if (PyTuple_GET_SIZE(args) || (kwargs && PyDict_GET_SIZE(kwargs))) {
+    //     PyErr_SetString(PyExc_TypeError, "NoneType takes no arguments");
+    //     return NULL;
+    // }
+    // Py_RETURN_NONE;
+    return PyLong_FromLong(77777);
 }
 
 static int
 none_bool(PyObject *v)
 {
-    return 0;
+    return 1;
 }
 
 static PyNumberMethods none_as_number = {

@@ -515,9 +515,12 @@ Don't forget to apply Py_INCREF() when returning this value!!!
 */
 PyAPI_DATA(PyObject) _Py_NoneStruct; /* Don't use this directly */
 #define Py_None (&_Py_NoneStruct)
+/* TEST only */
+// Macro for returning this fake none from long object
+// #define Py_FakeNone return PyLong_FromLong(888888)
 
 /* Macro for returning Py_None from a function */
-#define Py_RETURN_NONE return Py_INCREF(Py_None), Py_None
+#define Py_RETURN_NONE return Py_IncRef(Py_None), Py_None
 
 /*
 Py_NotImplemented is a singleton used to signal that an operation is
