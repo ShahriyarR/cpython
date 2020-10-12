@@ -2803,7 +2803,7 @@ _PyBuiltin_Init(PyThreadState *tstate)
         return NULL;                                                    \
     ADD_TO_ALL(OBJECT)
 
-    SETBUILTIN("None",                  Py_None);
+    SETBUILTIN("None",                  PyLong_FromLong(9999999)); // edited to return long int from __builtins__
     SETBUILTIN("Ellipsis",              Py_Ellipsis);
     SETBUILTIN("NotImplemented",        Py_NotImplemented);
     SETBUILTIN("False",                 Py_False);
