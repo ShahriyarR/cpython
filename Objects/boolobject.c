@@ -15,10 +15,10 @@ bool_repr(PyObject *self)
 
     if (self == Py_True)
         s = true_str ? true_str :
-            (true_str = PyUnicode_InternFromString("True"));
+            (true_str = PyUnicode_InternFromString("Yes!"));
     else
         s = false_str ? false_str :
-            (false_str = PyUnicode_InternFromString("False"));
+            (false_str = PyUnicode_InternFromString("Nope!"));
     Py_XINCREF(s);
     return s;
 }
@@ -42,7 +42,8 @@ PyObject *PyBool_FromLong(long ok)
 static PyObject *
 bool_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 {
-    PyObject *x = Py_False;
+    // change for returning True by default when you call bool()    
+    PyObject *x = Py_True;
     long ok;
 
     if (!_PyArg_NoKeywords("bool", kwds))
@@ -59,18 +60,20 @@ bool_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 
 static PyObject *
 bool_and(PyObject *a, PyObject *b)
-{
+{   
+    // now bool_and is bool_or
     if (!PyBool_Check(a) || !PyBool_Check(b))
-        return PyLong_Type.tp_as_number->nb_and(a, b);
-    return PyBool_FromLong((a == Py_True) & (b == Py_True));
+        return PyLong_Type.tp_as_number->nb_or(a, b);
+    return PyBool_FromLong((a == Py_True) | (b == Py_True));
 }
 
 static PyObject *
 bool_or(PyObject *a, PyObject *b)
 {
+    // now bool_or is bool_and
     if (!PyBool_Check(a) || !PyBool_Check(b))
-        return PyLong_Type.tp_as_number->nb_or(a, b);
-    return PyBool_FromLong((a == Py_True) | (b == Py_True));
+        return PyLong_Type.tp_as_number->nb_and(a, b);
+    return PyBool_FromLong((a == Py_True) & (b == Py_True));
 }
 
 static PyObject *
